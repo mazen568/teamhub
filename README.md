@@ -17,6 +17,10 @@
   <img src="https://img.shields.io/badge/Groq-f55a42?style=for-the-badge&logo=cpu&logoColor=white" alt="Groq" />
 </p>
 
+<p align="center">
+  <strong>🔗 Live Demo: <a href="https://teamhub-one.vercel.app/login">https://teamhub-one.vercel.app</a></strong>
+</p>
+
 TeamHub is a high-performance, containerized monorepo platform designed for team coordination, document knowledge-base building, and automated project workflows. It integrates real-time team collaboration with state-of-the-art state machine AI agents to scan specifications, run workload-constrained auto-assignment loops, and search documents semantically.
 
 ---
