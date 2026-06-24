@@ -18,6 +18,12 @@
 </p>
 
 <p align="center">
+  <a href="https://hub.docker.com/r/hassanabdelhamed22/teamhub-web" target="_blank"><img src="https://img.shields.io/docker/v/hassanabdelhamed22/teamhub-web?style=for-the-badge&logo=docker&logoColor=white&label=Docker%20Web&color=0db7ed" alt="Docker Web" /></a>
+  <a href="https://hub.docker.com/r/hassanabdelhamed22/teamhub-api" target="_blank"><img src="https://img.shields.io/docker/v/hassanabdelhamed22/teamhub-api?style=for-the-badge&logo=docker&logoColor=white&label=Docker%20API&color=0db7ed" alt="Docker API" /></a>
+  <a href="https://hub.docker.com/r/hassanabdelhamed22/teamhub-ai" target="_blank"><img src="https://img.shields.io/docker/v/hassanabdelhamed22/teamhub-ai?style=for-the-badge&logo=docker&logoColor=white&label=Docker%20AI&color=0db7ed" alt="Docker AI" /></a>
+</p>
+
+<p align="center">
   <strong>🔗 Live Demo: <a href="https://teamhub-one.vercel.app/login">https://teamhub-one.vercel.app</a></strong>
 </p>
 
@@ -381,35 +387,101 @@ Once started:
 
 ## 🐳 Running with Docker (Production/Staging)
 
-A multi-stage production layout is configured using Docker Compose. Front-facing traffic is isolated from internal databases and Python execution paths.
+The fastest way to run TeamHub — no Node.js, Python, or database setup needed. All services are pre-built and published to Docker Hub.
 
 ### 1. Prerequisites
-* **Docker Engine** (v20+)
-* **Docker Compose** (v2+)
+* **[Docker Desktop](https://www.docker.com/products/docker-desktop/)** (includes Docker Engine + Docker Compose)
 
-### 2. Execution Commands
+### 2. Quick Start
 
-#### **Build and Start Container Services**
-Make sure your root `.env` has all configurations populated, then run:
+#### **Step 1: Clone the Repository**
 ```bash
-docker compose up --build
+git clone https://github.com/hassanabdelhamed22/teamhub.git
+cd teamhub
 ```
-On startup:
-1. The `api` container runs database migrations (`prisma migrate deploy`) and starts.
-2. The `ai` and `web` containers wait for the `api` service to pass health checks.
-3. The `ai` container applies Alembic migrations (`alembic upgrade head`) and starts Uvicorn.
-4. The `web` container serves minified assets through Nginx.
 
-#### **Stop and Clean Containers**
-To stop the services and release ports:
+#### **Step 2: Configure Environment Variables (Optional)**
+All defaults are built into `docker-compose.yml`. You only need a `.env` file if you want to enable **optional features** like AI or image uploads:
 ```bash
+cp docker.env.example .env
+```
+Then edit `.env` and fill in any keys you need:
+| Variable | Required For |
+| :--- | :--- |
+| `GROQ_API_KEY` | AI features (Q&A, summaries, task extraction) |
+| `CLOUDINARY_CLOUD_NAME` | Image uploads |
+| `CLOUDINARY_API_KEY` | Image uploads |
+| `CLOUDINARY_API_SECRET` | Image uploads |
+
+#### **Step 3: Start the Application**
+```bash
+docker compose up
+```
+Docker will automatically pull the pre-built images from Docker Hub and start all services. On first run, it will:
+1. Pull the PostgreSQL database image (with `pgvector` extension)
+2. Initialize the database and run all migrations automatically
+3. Start the API gateway, AI microservice, and web frontend
+
+#### **Step 4: Access the Application**
+Once all services show as healthy:
+
+| Service | URL | Description |
+| :--- | :--- | :--- |
+| **Frontend** | http://localhost:5173 | React web application (served via Nginx) |
+| **API Gateway** | http://localhost:3000 | Express.js REST API & WebSocket server |
+| **AI Service** | http://localhost:8000 | FastAPI microservice (RAG, agents, streaming) |
+| **AI Docs** | http://localhost:8000/docs | Swagger UI for AI endpoints |
+
+### 3. Docker Architecture
+
+The stack uses two isolated bridge networks for security:
+
+```
+┌─────────────────────────────────────────────────┐
+│                 frontend network                │
+│   ┌──────────┐           ┌──────────────────┐   │
+│   │   Web    │◄─────────►│   API Gateway    │   │
+│   │ (Nginx)  │           │   (Express.js)   │   │
+│   │  :5173   │           │     :3000        │   │
+│   └──────────┘           └────────┬─────────┘   │
+│                                   │             │
+├───────────────────────────────────┼─────────────┤
+│                 backend network   │             │
+│                          ┌────────┴─────────┐   │
+│   ┌──────────┐           │   API Gateway    │   │
+│   │    DB    │◄─────────►│   (Express.js)   │   │
+│   │(pgvector)│           └──────────────────┘   │
+│   │  :5432   │◄─────────►┌──────────────────┐   │
+│   └──────────┘           │   AI Service     │   │
+│                          │   (FastAPI)      │   │
+│                          │     :8000        │   │
+│                          └──────────────────┘   │
+└─────────────────────────────────────────────────┘
+```
+
+### 4. Useful Commands
+
+```bash
+# Stop all services
 docker compose down
+
+# Stop all services and delete database data
+docker compose down -v
+
+# Rebuild images from source (after code changes)
+docker compose up --build
+
+# Rebuild a specific service
+docker compose build api
+
+# View logs for a specific service
+docker compose logs -f ai
+
+# Check service health status
+docker compose ps
 ```
 
-To permanently remove volumes (clears local state, does not affect Neon databases):
-```bash
-docker compose down -v
-```
+> **⚠️ Note:** If you have a local PostgreSQL instance running on port `5432`, there is no conflict — the Docker database maps to port `5433` externally. Internal services connect via Docker's internal network on port `5432`.
 
 ## 🔐 Default Test Credentials
 
