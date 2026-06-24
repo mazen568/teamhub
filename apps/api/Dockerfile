@@ -45,3 +45,6 @@ COPY --from=builder /app/packages/typescript-config ./packages/typescript-config
 COPY --from=builder /app/node_modules ./node_modules
 
 EXPOSE 3000
+
+# Default command (can be overridden by docker-compose)
+CMD ["pnpm", "--filter", "@teamhub/api", "start"]

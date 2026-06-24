@@ -1,4 +1,5 @@
-version: '3.8'
+volumes:
+  pgdata:
 
 networks:
   frontend:
@@ -8,7 +9,28 @@ networks:
 
 services:
 
+  db:
+    image: pgvector/pgvector:pg16
+    container_name: teamhub-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: teamhub
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 3s
+      timeout: 3s
+      retries: 10
+      start_period: 5s
+    networks:
+      - backend
+
   api:
+    image: hassanabdelhamed22/teamhub-api:latest
     build:
       context: .
       dockerfile: apps/api/Dockerfile
@@ -16,17 +38,17 @@ services:
     ports:
       - "3000:3000"
     environment:
-      - DATABASE_URL=${DATABASE_URL}
-      - JWT_ACCESS_SECRET=${JWT_ACCESS_SECRET}
-      - JWT_REFRESH_SECRET=${JWT_REFRESH_SECRET}
-      - JWT_ACCESS_EXPIRES=${JWT_ACCESS_EXPIRES}
-      - JWT_REFRESH_EXPIRES=${JWT_REFRESH_EXPIRES}
-      - CLOUDINARY_CLOUD_NAME=${CLOUDINARY_CLOUD_NAME}
-      - CLOUDINARY_API_KEY=${CLOUDINARY_API_KEY}
-      - CLOUDINARY_API_SECRET=${CLOUDINARY_API_SECRET}
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/teamhub
+      - JWT_ACCESS_SECRET=${JWT_ACCESS_SECRET:-default-dev-access-secret-change-in-production-min32chars}
+      - JWT_REFRESH_SECRET=${JWT_REFRESH_SECRET:-default-dev-refresh-secret-change-in-production-min32chars}
+      - JWT_ACCESS_EXPIRES=${JWT_ACCESS_EXPIRES:-15m}
+      - JWT_REFRESH_EXPIRES=${JWT_REFRESH_EXPIRES:-7d}
+      - CLOUDINARY_CLOUD_NAME=${CLOUDINARY_CLOUD_NAME:-}
+      - CLOUDINARY_API_KEY=${CLOUDINARY_API_KEY:-}
+      - CLOUDINARY_API_SECRET=${CLOUDINARY_API_SECRET:-}
       - AI_SERVICE_URL=http://ai:8000
       - AI_SERVICE_URL_EXTERNAL=http://localhost:8000
-      - AI_SERVICE_TOKEN=${AI_SERVICE_TOKEN}
+      - AI_SERVICE_TOKEN=${AI_SERVICE_TOKEN:-default-ai-service-token-secret}
       - FRONTEND_URL=http://localhost:5173
       - CORS_ORIGIN=http://localhost:5173
       - PORT=3000
@@ -37,40 +59,57 @@ services:
       timeout: 3s
       retries: 10
       start_period: 5s
+    depends_on:
+      db:
+        condition: service_healthy
     networks:
       - frontend
       - backend
 
   ai:
+    image: hassanabdelhamed22/teamhub-ai:latest
     build:
       context: ./apps/ai
       dockerfile: Dockerfile
     container_name: teamhub-ai
+    restart: on-failure
     ports:
       - "8000:8000"
     environment:
-      - DATABASE_URL=${DATABASE_URL_AI}
-      - GROQ_API_KEY=${GROQ_API_KEY}
-      - AI_SERVICE_TOKEN=${AI_SERVICE_TOKEN}
+      - DATABASE_URL=postgresql+asyncpg://postgres:postgres@db:5432/teamhub
+      - GROQ_API_KEY=${GROQ_API_KEY:-}
+      - AI_SERVICE_TOKEN=${AI_SERVICE_TOKEN:-default-ai-service-token-secret}
     depends_on:
+      db:
+        condition: service_healthy
       api:
         condition: service_healthy
-    command: sh -c "alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port 8000"
+    command: >
+      sh -c "
+        echo 'Waiting for database DNS resolution...' &&
+        for i in 1 2 3 4 5 6 7 8 9 10; do
+          python -c \"import socket; socket.getaddrinfo('db', 5432)\" 2>/dev/null && break;
+          echo \"DNS not ready, retrying in 3s... ($$i/10)\";
+          sleep 3;
+        done &&
+        alembic upgrade head &&
+        uvicorn app.main:app --host 0.0.0.0 --port 8000
+      "
     networks:
       - backend
 
   web:
+    image: hassanabdelhamed22/teamhub-web:latest
     build:
       context: .
       dockerfile: apps/web/Dockerfile
+      args:
+        - VITE_API_URL=http://localhost:3000
     container_name: teamhub-web
     ports:
       - "5173:5173"
-    environment:
-      - VITE_API_URL=http://localhost:3000
     depends_on:
       api:
         condition: service_healthy
     networks:
       - frontend
-

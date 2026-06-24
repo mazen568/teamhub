@@ -22,6 +22,10 @@ COPY packages/typescript-config ./packages/typescript-config
 COPY packages/shared ./packages/shared
 COPY apps/web ./apps/web
 
+# Accept build arguments for Vite environment variables
+ARG VITE_API_URL=http://localhost:3000
+ENV VITE_API_URL=$VITE_API_URL
+
 # Build the React web frontend
 RUN pnpm --filter @teamhub/web build
 

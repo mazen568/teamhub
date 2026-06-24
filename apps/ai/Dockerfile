@@ -17,9 +17,17 @@ RUN pip install --no-cache-dir torch --index-url https://download.pytorch.org/wh
 # Install python packages
 RUN pip install --no-cache-dir .
 
+# Pre-download the embedding model during build so it's cached in the image
+# This avoids needing internet access at runtime
+RUN python -c "from sentence_transformers import SentenceTransformer; SentenceTransformer('all-MiniLM-L6-v2')"
+
 # Copy application files
 COPY app ./app
 COPY alembic ./alembic
 COPY alembic.ini ./
 
 EXPOSE 8000
+
+# Default command (can be overridden by docker-compose)
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+
