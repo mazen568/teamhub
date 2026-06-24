@@ -18,12 +18,6 @@
 </p>
 
 <p align="center">
-  <a href="https://hub.docker.com/r/hassanabdelhamed22/teamhub-web" target="_blank"><img src="https://img.shields.io/docker/v/hassanabdelhamed22/teamhub-web?style=for-the-badge&logo=docker&logoColor=white&label=Docker%20Web&color=0db7ed" alt="Docker Web" /></a>
-  <a href="https://hub.docker.com/r/hassanabdelhamed22/teamhub-api" target="_blank"><img src="https://img.shields.io/docker/v/hassanabdelhamed22/teamhub-api?style=for-the-badge&logo=docker&logoColor=white&label=Docker%20API&color=0db7ed" alt="Docker API" /></a>
-  <a href="https://hub.docker.com/r/hassanabdelhamed22/teamhub-ai" target="_blank"><img src="https://img.shields.io/docker/v/hassanabdelhamed22/teamhub-ai?style=for-the-badge&logo=docker&logoColor=white&label=Docker%20AI&color=0db7ed" alt="Docker AI" /></a>
-</p>
-
-<p align="center">
   <strong>🔗 Live Demo: <a href="https://teamhub-one.vercel.app/login">https://teamhub-one.vercel.app</a></strong>
 </p>
 
