@@ -43,4 +43,11 @@ yarn-error.log*
 !docs/Shawky Ahmad Shawky/*.md
 !artifacts/demo/manifests/*.md
 
+# Demo artifacts (keep only curated public assets)
+artifacts/demo/demo-auth-state.json
+artifacts/demo/qa_frames_final/
+artifacts/demo/qa_frames/
+artifacts/demo/qa_frames_v3/
+artifacts/demo/qa_frames_v4/
+
 skills-lock.json
