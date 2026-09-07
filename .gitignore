@@ -38,7 +38,9 @@ yarn-error.log*
 *.pem
 .agents/*
 *.md
+!README.md
 !docs/Shawky Ahmad Shawky/
 !docs/Shawky Ahmad Shawky/*.md
+!artifacts/demo/manifests/*.md
 
 skills-lock.json

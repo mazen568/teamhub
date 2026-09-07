@@ -1,0 +1,39 @@
+{
+  "cookies": [
+    {
+      "name": "access_token",
+      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkMDk3MDQ0Ni01ZDcxLTQ2NmYtOWZmZS0yZDg4ZGI5ZjA0OWUiLCJlbWFpbCI6ImUyZXRlc3RlckBnbWFpbC5jb20iLCJpYXQiOjE3ODg3ODA5MjMsImV4cCI6MTc4ODc4MTgyM30.ATdMVrAP_kSYrzmfdCEzKsc1afs7rpdGyxLLZs85hKc",
+      "domain": "localhost",
+      "path": "/",
+      "expires": 1788781824.08938,
+      "httpOnly": true,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "refresh_token",
+      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkMDk3MDQ0Ni01ZDcxLTQ2NmYtOWZmZS0yZDg4ZGI5ZjA0OWUiLCJlbWFpbCI6ImUyZXRlc3RlckBnbWFpbC5jb20iLCJpYXQiOjE3ODg3ODA5MjMsImV4cCI6MTc4OTM4NTcyM30.of4-TQycwi-kWmpi-6ukmVRb6zuNEcU9jeQntU3meXc",
+      "domain": "localhost",
+      "path": "/",
+      "expires": 1789385724.090906,
+      "httpOnly": true,
+      "secure": false,
+      "sameSite": "Lax"
+    }
+  ],
+  "origins": [
+    {
+      "origin": "http://localhost:5173",
+      "localStorage": [
+        {
+          "name": "workspace-storage",
+          "value": "{\"state\":{\"workspaces\":[{\"id\":\"aec037fe-be19-4cd9-9304-6e9dbd34d7a4\",\"name\":\"Nexus Product Team\",\"slug\":\"nexus-product-team\",\"logo_url\":null,\"plan\":\"pro\",\"owner_id\":\"6513a528-b9ba-4672-af2a-32cad32db261\",\"created_at\":\"2026-09-07T10:43:44.815Z\",\"updated_at\":\"2026-09-07T10:43:44.815Z\"}],\"activeWorkspace\":{\"id\":\"aec037fe-be19-4cd9-9304-6e9dbd34d7a4\",\"name\":\"Nexus Product Team\",\"slug\":\"nexus-product-team\",\"logo_url\":null,\"plan\":\"pro\",\"owner_id\":\"6513a528-b9ba-4672-af2a-32cad32db261\",\"created_at\":\"2026-09-07T10:43:44.815Z\",\"updated_at\":\"2026-09-07T10:43:44.815Z\"}},\"version\":0}"
+        },
+        {
+          "name": "auth-storage",
+          "value": "{\"state\":{\"user\":{\"id\":\"d0970446-5d71-466f-9ffe-2d88db9f049e\",\"email\":\"e2etester@gmail.com\",\"display_name\":\"Shawky Elsayed\",\"avatar_url\":\"https://api.dicebear.com/7.x/avataaars/svg?seed=Shawky&backgroundColor=c0aede\",\"status\":\"offline\",\"created_at\":\"2026-09-07T10:43:44.792Z\",\"updated_at\":\"2026-09-07T11:31:47.752Z\"},\"isAuthenticated\":true},\"version\":0}"
+        }
+      ]
+    }
+  ]
+}

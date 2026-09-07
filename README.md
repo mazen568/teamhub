@@ -18,25 +18,117 @@
 </p>
 
 <p align="center">
-  <strong>🔗 Live Demo: <a href="https://teamhub-one.vercel.app/login">https://teamhub-one.vercel.app</a></strong>
+  <strong>🔗 Live Deployment: <a href="https://teamhub-one.vercel.app/login">https://teamhub-one.vercel.app</a></strong> &nbsp;•&nbsp;
+  <strong>🎬 <a href="artifacts/demo/video/teamhub-demo-cv.mp4">Watch Walkthrough (1080p MP4 — 50s)</a></strong> &nbsp;•&nbsp;
+  <strong>⚡ <a href="artifacts/demo/video/teamhub-demo-short.mp4">Quick Cut (30s)</a></strong>
 </p>
 
-TeamHub is a high-performance, containerized monorepo platform designed for team coordination, document knowledge-base building, and automated project workflows. It integrates real-time team collaboration with state-of-the-art state machine AI agents to scan specifications, run workload-constrained auto-assignment loops, and search documents semantically.
+<p align="center">
+  <a href="artifacts/demo/video/teamhub-demo-cv.mp4">
+    <img src="artifacts/demo/screenshots/18-kanban-rich-board.png" alt="TeamHub High-Velocity Work Management & Kanban Board" width="95%" />
+  </a>
+</p>
+
+TeamHub is an enterprise-grade, containerized workspace collaboration platform architected for agile engineering teams. It integrates sub-50ms real-time task management (Kanban), threaded communication channels, TipTap rich-text documentation, and state-machine AI agents with semantic vector search.
 
 ---
 
 ## 📖 Table of Contents
-1. [🚀 Key Features](#-key-features)
-2. [🛠️ Tech Stack](#️-tech-stack)
-3. [📁 Folder Structure](#-folder-structure)
-4. [🏗️ System Architecture](#️-system-architecture)
-5. [⚙️ Environment Variables](#️-environment-variables)
-6. [🏃 Running Locally (No Docker)](#-running-locally-no-docker)
-7. [🐳 Running with Docker (Production/Staging)](#-running-with-docker-productionstaging)
-8. [🔐 Default Test Credentials](#-default-test-credentials)
-9. [🔌 API Endpoints Summary](#-api-endpoints-summary)
-10. [👥 Developer Experience & Contribution](#-developer-experience--contribution)
-11. [👥 Team Distribution](#-team-distribution)
+1. [🎬 Video Walkthrough & Demos](#-video-walkthrough--demos)
+2. [⚡ Work Management Spotlight (Shawky Elsayed)](#-work-management-spotlight-shawky-elsayed)
+3. [📸 UI & Architecture Gallery](#-ui--architecture-gallery)
+4. [🧪 Reproducible Demo Quickstart](#-reproducible-demo-quickstart)
+5. [🚀 Key Features](#-key-features)
+6. [🛠️ Tech Stack](#️-tech-stack)
+7. [📁 Folder Structure](#-folder-structure)
+8. [🏗️ System Architecture](#️-system-architecture)
+9. [⚙️ Environment Variables](#️-environment-variables)
+10. [🏃 Running Locally (No Docker)](#-running-locally-no-docker)
+11. [🐳 Running with Docker (Production/Staging)](#-running-with-docker-productionstaging)
+12. [🔐 Seeded Demo Accounts & Credentials](#-seeded-demo-accounts--credentials)
+13. [🔌 API Endpoints Summary](#-api-endpoints-summary)
+14. [👥 Developer Experience & Contribution](#-developer-experience--contribution)
+15. [👥 Team Distribution & Credits](#-team-distribution--credits)
+
+---
+
+## 🎬 Video Walkthrough & Demos
+
+The demonstration video showcases a continuous, zero-freeze walkthrough recorded at 1080p 60fps with fluid cursor motion, sub-50ms optimistic UI interactions, and client-side single-page navigation:
+
+| Deliverable | Format / Resolution | Duration | File Size | Description & Direct Links |
+| :--- | :--- | :--- | :--- | :--- |
+| **Full Portfolio Walkthrough** | 1080p H.264 (`+faststart`) | **50.77s** | **4.17 MB** | **[▶️ View teamhub-demo-cv.mp4](artifacts/demo/video/teamhub-demo-cv.mp4)**<br/>Complete flow: Executive Dashboard → Work Management Kanban → Task Detail Drawer & Comments → Priority Filters → Realtime Channels → TipTap Docs → RBAC Directory. |
+| **High-Impact Social Cut** | 1080p H.264 (`+faststart`) | **30.00s** | **2.31 MB** | **[▶️ View teamhub-demo-short.mp4](artifacts/demo/video/teamhub-demo-short.mp4)**<br/>Snappy 30-second cut optimized for LinkedIn posts, technical recruiter reviews, and fast mobile previews. |
+
+> 📄 **Technical Verification & Metrics**: Complete timing breakdowns, frame-by-frame audits, and route mappings are documented in the [Demo Manifest](artifacts/demo/manifests/DEMO_MANIFEST.md).
+
+---
+
+## ⚡ Work Management Spotlight (Shawky Elsayed)
+
+**Feature Architect & Lead**: **Shawky Elsayed**  
+**Core Responsibility**: Real-Time Kanban Board, Task Lifecycle Engine, Filtering System & Responsive Mobile Architecture.
+
+<p align="center">
+  <img src="artifacts/demo/screenshots/17-kanban-board.png" alt="Multi-Column Kanban Board" width="48%" />
+  <img src="artifacts/demo/screenshots/19-task-detail-drawer.png" alt="Deep-Linked Task Detail Drawer" width="48%" />
+</p>
+
+### Key Engineering Decisions & Innovations
+
+1. **Optimistic Multi-Column Drag-and-Drop (`@dnd-kit/core` & `@dnd-kit/sortable`)**:
+   - Architected responsive 5-column sprint workflows (`Backlog`, `Planned`, `In Progress`, `Review`, `Done`).
+   - Implemented sub-50ms optimistic state reconciliation: task card reordering renders instantly in the DOM while queuing asynchronous API synchronization.
+   - Designed automatic drag-locks when active filter or search queries are applied to prevent corrupted index mutations.
+2. **Deep-Linked Task Drawer (`?task=<uuid>`)**:
+   - Synchronized drawer state directly with URL query parameters via React Router.
+   - Allows teammates to share direct links to individual task discussions, preserving context on page reloads and browser history traversals (`Back`/`Forward`).
+3. **Deadlines & Overdue Visual State Machine**:
+   - Dynamic date-computation engine that evaluates task due dates against client/server UTC clocks.
+   - Highlights delayed tasks with high-visibility red badge indicators and urgency flags without requiring manual state toggles.
+4. **Mobile-First "Focus Mode"**:
+   - Solved the common UX bottleneck of cramped horizontal scrolling on mobile viewports (390×844).
+   - Designed a single-column tabbed Focus Mode enabling developers on mobile devices to switch between sprint columns smoothly with swipe-friendly touch targets.
+5. **Real-Time Collaborative Synchronization**:
+   - Powered by Socket.IO event listeners (`TASK_UPDATED`, `TASK_MOVED`, `TASK_COMMENT_ADDED`), broadcasting updates across concurrent active workspace sessions.
+
+---
+
+## 📸 UI & Architecture Gallery
+
+A curated preview from the **32 high-resolution screenshots** captured across desktop (1440×900 @ 1.5x DPR) and mobile (390×844) viewports:
+
+| View | Desktop Capture | Key Capabilities |
+| :--- | :--- | :--- |
+| **Kanban Sprint Board** | <a href="artifacts/demo/screenshots/18-kanban-rich-board.png"><img src="artifacts/demo/screenshots/18-kanban-rich-board.png" width="360" alt="Kanban Sprint Board"/></a> | Multi-column drag-and-drop, priority badges, assignee avatars, sprint metrics. |
+| **Task Detail Drawer** | <a href="artifacts/demo/screenshots/19-task-detail-drawer.png"><img src="artifacts/demo/screenshots/19-task-detail-drawer.png" width="360" alt="Task Detail Drawer"/></a> | Sliding panel, live comments thread, priority selectors, URL sync (`?task=id`). |
+| **Overdue Task Warnings** | <a href="artifacts/demo/screenshots/24-board-overdue-state.png"><img src="artifacts/demo/screenshots/24-board-overdue-state.png" width="360" alt="Overdue Task Warnings"/></a> | Red overdue alert badges, deadline countdowns, and urgent triage states. |
+| **Realtime Team Channels** | <a href="artifacts/demo/screenshots/09-channel-conversation.png"><img src="artifacts/demo/screenshots/09-channel-conversation.png" width="360" alt="Realtime Team Channels"/></a> | Socket.IO messaging, emoji reactions, code block syntax highlighting. |
+| **TipTap Document Editor** | <a href="artifacts/demo/screenshots/13-document-editor.png"><img src="artifacts/demo/screenshots/13-document-editor.png" width="360" alt="TipTap Document Editor"/></a> | Collaborative rich-text editor with markdown parsing and debounced auto-save. |
+| **Executive Dashboard** | <a href="artifacts/demo/screenshots/04-dashboard.png"><img src="artifacts/demo/screenshots/04-dashboard.png" width="360" alt="Executive Dashboard"/></a> | Sprint velocity meter, team capacity tracking, active priorities, and live feed. |
+| **Mobile Focus Mode** | <a href="artifacts/demo/screenshots/27-board-mobile-focus-mode.png"><img src="artifacts/demo/screenshots/27-board-mobile-focus-mode.png" width="180" alt="Mobile Focus Mode"/></a> | Single-column tabbed navigation tailored for mobile viewports (390×844). |
+
+> 📁 **Full Screenshot Catalog**: Browse all 32 captures and architectural breakdowns in [HERO_SCREENSHOTS.md](artifacts/demo/manifests/HERO_SCREENSHOTS.md).
+
+---
+
+## 🧪 Reproducible Demo Quickstart
+
+Evaluate the full platform locally in under 60 seconds with self-contained seed data:
+
+```bash
+# 1. Start isolated PostgreSQL container with pgvector (Port 5435)
+docker run -d --name teamhub-postgres -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=teamhub -p 5435:5432 pgvector/pgvector:pg16
+
+# 2. Seed realistic demo data (Shawky Elsayed, Q4 Sprint Board, overdue tasks, channels)
+npx tsx apps/api/prisma/demo-seed.ts
+
+# 3. Launch development servers
+pnpm dev
+```
+
+Open `http://localhost:5173` and log in immediately using the seeded credentials below.
 
 ---
 
@@ -477,13 +569,23 @@ docker compose ps
 
 > **⚠️ Note:** If you have a local PostgreSQL instance running on port `5432`, there is no conflict — the Docker database maps to port `5433` externally. Internal services connect via Docker's internal network on port `5432`.
 
-## 🔐 Default Test Credentials
+## 🔐 Seeded Demo Accounts & Credentials
 
-For quick local evaluation, you can bypass user registration by authenticating with the default pre-seeded user profile:
+For immediate local evaluation or testing role boundaries (RBAC), authenticate with any of the pre-seeded team profiles:
 
-* **Email Address**: `e2etester@gmail.com`
-* **Password**: `password123`
-* **Pre-loaded Workspace**: Contains pre-configured task boards, document nodes, channels, and message history.
+| Name | Role | Email | Password | Primary Demo Responsibilities |
+| :--- | :--- | :--- | :--- | :--- |
+| **Shawky Elsayed** | **Admin / Work Mgmt Lead** | `e2etester@gmail.com` | `password123` | **Hero User**: Board configuration, task lifecycle, sprint filters, comments, assignee workflows |
+| **Sarah Chen** | **Workspace Owner** | `sarah.chen@nexus.io` | `password123` | Role delegation, workspace settings administration, danger zone safeguards |
+| **Omar Khalil** | Member (Senior Full-Stack) | `omar.khalil@nexus.io` | `password123` | Realtime messaging partner, task assignee |
+| **Maya Hassan** | Member (Product Designer) | `maya.hassan@nexus.io` | `password123` | Document co-author, design channel threads |
+| **Daniel Kim** | Member (Frontend Engineer) | `daniel.kim@nexus.io` | `password123` | Board collaborator, subtask assignee |
+| **Lina Ahmed** | Member (QA & Release Lead) | `lina.ahmed@nexus.io` | `password123` | Review column owner, regression testing comments |
+| **Alex Morgan** | Member (DevOps / Infrastructure) | `alex.morgan@nexus.io` | `password123` | Infrastructure tasks, automated CI/CD threads |
+
+* **Pre-loaded Workspace**: `Nexus Product Team` (`aec037fe-be19-4cd9-9304-6e9dbd34d7a4`)
+* **Hero Sprint Board**: `Product Launch — Q4` (`2a96d778-de28-48ff-9c4d-d45593977814`)
+* **Hero Overdue Task**: `Redesign onboarding flow` (`ee38a6a8-c70f-4894-95da-1f05ce4c2b16`)
 
 ---
 
@@ -526,6 +628,7 @@ Manage your development workflow from the root directory:
 * `pnpm dev`: Launches concurrent development pipelines with hot-reload
 * `pnpm check-types`: Runs static type verification checks across the codebase
 * `pnpm lint`: Audits formatting and code style guidelines
+* `pnpm demo:seed`: Seeds realistic portfolio dataset to PostgreSQL
 
 ### Contribution Guide
 1. Create a feature branch (`git checkout -b feat/your-feature`).
@@ -535,12 +638,12 @@ Manage your development workflow from the root directory:
 
 ---
 
-## 👥 Team Distribution
+## 👥 Team Distribution & Credits
 
 | Team Member | Ownership Area | Key Contributions / Delivered Features |
 | :--- | :--- | :--- |
 | **Mazen Raafat** | Core Auth & Workspace Foundation | <ul><li>**Unified Auth System**: registration, login with `bcrypt` encryption, JWT token management, and secure `httpOnly` cookie refresh token rotation.</li><li>**Workspace Management**: complete workspace CRUD operations, strict name and slug validation, and owner auto-assignment.</li><li>**User Profile**: dedicated me-endpoints supporting profile updates and Premium DiceBear avatar integration.</li><li>**Workspace validation schemas**: Centralized Zod types and interfaces shared in the monorepo.</li></ul> |
 | **Hassan Muhammad** | Workspace Members & Channels | <ul><li>**Workspace Directory**: search and listing views, add-member actions, RBAC restrictions, and toast feedback alerts.</li><li>**Channels Workspace**: details pages, non-DM member lists, and public channel self-join mechanisms.</li><li>**Direct Messages Flow**: transactional DM instantiation creating channel and participant relationships simultaneously, and search integration.</li><li>**Express API Endpoints**: user search, workspace members endpoints, and channel CRUD functions.</li></ul> |
 | **Moamen Soltan** | Real-Time Chat & Messages | <ul><li>**Real-Time Messaging**: WebSocket delivery, cursor-based message pagination, and Socket.io typing indicators.</li><li>**Message Alignment UI**: customized peer vs self chat bubble layout positioning (right-aligned accent colors vs left-aligned avatar bubbles).</li><li>**Schema Design**: database setup of Message, Reactions, Mentions, and Attachments models.</li></ul> |
-| **Shawky Elsayed** | Work Management & Boards | <ul><li>**Kanban Board UI**: horizontal column layout, mobile "Focus Mode" tabs switcher, and statistics header widgets.</li><li>**Task Cards**: drag-and-drop actions, priority indicators, assignee avatars, and due date overdue highlight flags.</li><li>**Task Detail Sliding Panel**: sliding detail drawer and browser URL deep-linking support (`?task=uuid`).</li><li>**Real-Time Sync**: Socket-powered synchronization ensuring board states remain updated.</li></ul> |
+| **Shawky Elsayed** | Work Management & Boards (Lead) | <ul><li>**Interactive Kanban Board**: Horizontal multi-column layout (`@dnd-kit/core` & `@dnd-kit/sortable`), mobile single-column "Focus Mode" tabs switcher, and live sprint header metrics.</li><li>**Task Drag-and-Drop Lifecycle**: Sub-50ms optimistic reordering, drag locks during active filters, priority indicators (Urgent/High/Medium/Low), multi-assignee avatar clusters, and date-arithmetic overdue highlights.</li><li>**Deep-Linked Task Detail Drawer**: Sliding detail panel synchronized directly with URL query parameters (`?task=uuid`) for shareable team links and browser history navigation.</li><li>**Real-Time Collaborative Synchronization**: Sub-50ms Socket.IO event broadcasting for board state and live task discussion streams.</li></ul> |
 | **Hassan Abdelhamed** | Document Hub, Assets & AI | <ul><li>**Document Workspace**: CRUD lifecycle, TipTap editor layout, Cover & Icon pickers, and debounced auto-saves.</li><li>**Document Exporters**: custom Markdown parser and theme-agnostic light mode PDF print exporter.</li><li>**Media Attachment System**: Cloudinary uploads mapping uploads to a single target constraint (docs, chat, tasks).</li><li>**Notification Center**: persistent db alerts for workspace invites, mentions, and assignments.</li><li>**AI & RAG Engine**: FastAPI Python service, semantic embeddings pipeline (SentenceTransformers + pgvector), global command palette search (`Ctrl+K`), Q&A (RAG), and streaming SSE summaries.</li><li>**Stateful Agent Workflows**: LangGraph task extractor with HITL steppers, workload capacity point rebalancing loops, and SQLAlchemy thread checkpointer.</li></ul> |

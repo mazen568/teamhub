@@ -3,6 +3,10 @@ import { requireAuth } from '../../middleware/requireAuth';
 import * as AIController from './ai.controller';
 
 const router = Router();
+
+// Streaming SSE endpoint accessed via signed query token
+router.get('/stream/:streamId', AIController.handleSSEStream);
+
 router.use(requireAuth);
 
 // Document AI Endpoints

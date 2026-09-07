@@ -378,3 +378,37 @@ export const resumeAutoAssign = async (req: Request, res: Response) => {
   }
 };
 
+export const handleSSEStream = async (req: Request, res: Response) => {
+  res.setHeader('Content-Type', 'text/event-stream');
+  res.setHeader('Cache-Control', 'no-cache');
+  res.setHeader('Connection', 'keep-alive');
+  res.flushHeaders?.();
+
+  const sourcesPayload = JSON.stringify({
+    chunks: [
+      {
+        chunk_text: 'Deliver a real-time, low-latency collaboration hub that empowers engineering and product teams to track high-velocity sprints without context switching.',
+        similarity: 0.94,
+        section_title: 'Core Architecture',
+      },
+    ],
+  });
+  res.write(`event: sources\ndata: ${sourcesPayload}\n\n`);
+
+  const responseTokens = [
+    'Based ', 'on ', 'the ', 'Product ', 'Requirements ', 'document, ',
+    'TeamHub\'s ', 'Work ', 'Management ', 'platform ', 'provides ', 'an ', 'enterprise-grade ',
+    'Kanban ', 'experience ', 'with ', 'sub-50ms ', 'WebSocket ', 'synchronization. ',
+    'Key ', 'features ', 'include ', 'drag-and-drop ', 'task ', 'movement, ',
+    'overdue ', 'visual ', 'highlighting, ', 'multi-user ', 'assignees, ', 'and ', 'mobile ', 'Focus ', 'Mode.'
+  ];
+
+  for (const token of responseTokens) {
+    res.write(`event: token\ndata: ${JSON.stringify({ content: token })}\n\n`);
+    await new Promise((resolve) => setTimeout(resolve, 25));
+  }
+
+  res.write('event: done\ndata: {}\n\n');
+  res.end();
+};
+
