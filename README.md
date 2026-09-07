@@ -217,7 +217,7 @@ sequenceDiagram
 
 ## 🎯 My Contribution — Work Management
 
-**Shawky Elsayed** — Feature Architect & Lead
+**Shawky Elsayed** — Feature Architect 
 
 I designed and implemented the complete Work Management system: the interactive Kanban board, task lifecycle engine, real-time synchronization, filtering system, and responsive mobile architecture.
 
@@ -448,7 +448,7 @@ pnpm dev
 | **Mazen Raafat** | Auth & Workspace | JWT auth with httpOnly refresh rotation, workspace CRUD, Zod validation schemas |
 | **Hassan Muhammad** | Members & Channels | Member directory with RBAC, channel management, DM transactions, search integration |
 | **Moamen Soltan** | Real-Time Chat | WebSocket message delivery, cursor-based pagination, typing indicators, chat bubble alignment |
-| **Shawky Elsayed** | **Work Management (Lead)** | **Kanban board, drag-and-drop, task lifecycle, deep-linked drawer, filters, overdue states, mobile Focus Mode, real-time board sync** |
+| **Shawky Elsayed** | **Work Management** | **Kanban board, drag-and-drop, task lifecycle, deep-linked drawer, filters, overdue states, mobile Focus Mode, real-time board sync** |
 | **Hassan Abdelhamed** | Documents, AI & Assets | TipTap editor, Markdown/PDF export, Cloudinary uploads, notifications, RAG engine, LangGraph agents |
 
 ---
