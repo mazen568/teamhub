@@ -12,32 +12,33 @@
 </p>
 
 <p align="center">
+  <a href="https://drive.google.com/file/d/1tnb8HRKixMHOOI1DhhWuxmOhsymKqDql/view?usp=sharing">
+    <img src="https://img.shields.io/badge/▶%20Featured%20Demo-Watch%20Video%20(51s)-E50914?style=for-the-badge&logo=googledrive&logoColor=white" alt="Watch Featured Demo on Google Drive" />
+  </a>
+  <a href="https://teamhub-one.vercel.app/login">
+    <img src="https://img.shields.io/badge/🌐%20Live%20App-teamhub--one.vercel.app-2563EB?style=for-the-badge" alt="Live App" />
+  </a>
+</p>
+
+<p align="center">
+  <a href="https://drive.google.com/file/d/1tnb8HRKixMHOOI1DhhWuxmOhsymKqDql/view?usp=sharing"><strong>🎬 Featured Video Demo (51s)</strong></a> &nbsp;·&nbsp;
   <a href="https://teamhub-one.vercel.app/login"><strong>🌐 Live App</strong></a> &nbsp;·&nbsp;
-  <a href="artifacts/demo/video/teamhub-demo-cv.mp4"><strong>▶ 51s Demo</strong></a> &nbsp;·&nbsp;
   <a href="#-system-architecture"><strong>🏗 Architecture</strong></a> &nbsp;·&nbsp;
   <a href="#-my-contribution--work-management"><strong>🎯 My Contribution</strong></a>
 </p>
 
-<p align="center">
-  <a href="artifacts/demo/video/teamhub-demo-cv.mp4">
-    <img src="docs/assets/readme/kanban-board.png" alt="TeamHub Kanban board with prioritized tasks across five workflow columns — Backlog, Planned, In Progress, Review, Done" width="100%" />
-  </a>
-</p>
-
-TeamHub is a containerized monorepo platform for agile engineering teams. It combines drag-and-drop Kanban boards with sub-50ms optimistic updates, Socket.IO real-time synchronization, a TipTap collaborative document editor, and a RAG-powered AI pipeline using LangGraph agents and pgvector semantic search.
-
 ---
 
-## ▶ Product Demo
+## 🎬 Featured Product Demo
 
 <p align="center">
-  <a href="artifacts/demo/video/teamhub-demo-cv.mp4">
-    <img src="docs/assets/readme/dashboard.png" alt="Click to watch the 51-second TeamHub product walkthrough" width="80%" />
+  <a href="https://drive.google.com/file/d/1tnb8HRKixMHOOI1DhhWuxmOhsymKqDql/view?usp=sharing">
+    <img src="docs/assets/readme/demo-video-poster.png" alt="TeamHub 51-Second Product Walkthrough Demo — Click to watch on Google Drive" width="100%" />
   </a>
   <br/>
-  <a href="artifacts/demo/video/teamhub-demo-cv.mp4"><strong>▶ Watch the 51-second Product Walkthrough (1080p MP4, 4.2 MB)</strong></a>
+  <strong><a href="https://drive.google.com/file/d/1tnb8HRKixMHOOI1DhhWuxmOhsymKqDql/view?usp=sharing">▶ Watch the 51-second Product Walkthrough on Google Drive (1080p HD) ↗</a></strong>
   &nbsp;·&nbsp;
-  <a href="artifacts/demo/video/teamhub-demo-short.mp4"><strong>⚡ 30s Quick Cut</strong></a>
+  <a href="artifacts/demo/video/teamhub-demo-short.mp4"><strong>⚡ 30s Quick Cut (Local MP4)</strong></a>
 </p>
 
 ```mermaid
@@ -53,6 +54,8 @@ timeline
     00‥46 : Members and RBAC
     00‥50 : Closing Board View
 ```
+
+TeamHub is a containerized monorepo platform for agile engineering teams. It combines drag-and-drop Kanban boards with sub-50ms optimistic updates, Socket.IO real-time synchronization, a TipTap collaborative document editor, and a RAG-powered AI pipeline using LangGraph agents and pgvector semantic search.
 
 ---
 
@@ -454,6 +457,7 @@ pnpm dev
 
 | Document | Description |
 | :--- | :--- |
+| [Featured Demo Video](https://drive.google.com/file/d/1tnb8HRKixMHOOI1DhhWuxmOhsymKqDql/view?usp=sharing) | Full 51-second 1080p HD product walkthrough stream on Google Drive |
 | [Work Management — Technical Docs](docs/Shawky%20Ahmad%20Shawky/) | Feature documentation, API flows, UI/UX decisions, validation & QA |
 | [Demo Manifest](artifacts/demo/manifests/DEMO_MANIFEST.md) | Complete demo environment specification, test accounts, entity registry |
 | [Hero Screenshots Breakdown](artifacts/demo/manifests/HERO_SCREENSHOTS.md) | Technical analysis of each captured view |

@@ -126,6 +126,7 @@ All screenshots captured in **Desktop (1440×900 @ 1.5x DPR)** and **Mobile (390
 
 - **Local Source Path**: `c:\Users\shawk\Downloads\teamhub\artifacts\demo\video\`
 - **Mirror Storage Path**: `C:\Users\shawk\.gemini\antigravity-ide\brain\0a5ee4b3-f205-4b4e-91b0-9f716525f6a1\demo\video\`
+- **Public Cloud Stream**: [Google Drive 1080p Walkthrough](https://drive.google.com/file/d/1tnb8HRKixMHOOI1DhhWuxmOhsymKqDql/view?usp=sharing)
 - **Visual QA Quality**: 100% Zero-Freeze, Continuous Cursor Momentum, No Stalls, SPA Fluid Navigation.
 
 ---
